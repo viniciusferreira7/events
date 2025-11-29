@@ -1,4 +1,4 @@
-package com.example.events.core.entities;
+package com.example.events.core.enums;
 
 public enum EventType {
     CONFERENCE,

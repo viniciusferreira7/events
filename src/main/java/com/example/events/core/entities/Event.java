@@ -1,18 +1,21 @@
 package com.example.events.core.entities;
 
-import java.util.Date;
+import com.example.events.core.enums.EventType;
+
+import java.time.LocalDateTime;
 
 public record Event(
         String id,
-        String authorId,
+        String organizerId,
+        String identifier,
         EventType type,
         String name,
         String description,
-        Date startTime,
-        Date endTime,
+        LocalDateTime startTime,
+        LocalDateTime endTime,
         String local,
         Short capacity,
-        Date createdAt,
-        Date updatedAt
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
 ) {
 }
