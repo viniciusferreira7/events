@@ -3,6 +3,7 @@ package com.example.events.core.entities;
 import com.example.events.core.enums.EventType;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public record Event(
         String id,
@@ -16,6 +17,6 @@ public record Event(
         String local,
         Short capacity,
         LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        Optional<LocalDateTime> updatedAt
 ) {
 }
