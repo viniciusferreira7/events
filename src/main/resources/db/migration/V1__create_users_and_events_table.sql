@@ -46,5 +46,6 @@ CREATE TABLE IF NOT EXISTS events (
     updated_at TIMESTAMP NULL,
 
     FOREIGN KEY(sponsor_id) REFERENCES users(id)
-
 );
+
+CREATE INDEX  idx_events_sponsor_id on events(sponsor_id);
