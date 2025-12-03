@@ -20,11 +20,13 @@ public class EventEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private final String id;
 
-    @Column(name = "organizer_id")
-    private String organizerId;
+    @Column(name = "sponsor_id")
+    private String sponsorId;
     private String identifier;
     private EventType type;
     private String name;
+
+    @Column(nullable = true)
     private String description;
 
     @Column(name = "start_time")
@@ -33,7 +35,9 @@ public class EventEntity {
     @Column(name = "end_time")
     private LocalDateTime endTime;
 
-    private String local;
+    private String location;
+
+    @Column(nullable = true)
     private Short capacity;
 
     @Column(name = "created_at")
@@ -44,27 +48,27 @@ public class EventEntity {
 
     public EventEntity(
             String id,
-           String organizerId,
+           String sponsorId,
            String identifier,
            EventType type,
            String name,
            String description,
            LocalDateTime startTime,
            LocalDateTime endTime,
-           String local,
+           String location,
            Short capacity,
            LocalDateTime createdAt,
            LocalDateTime updatedAt
     ) {
         this.id = id;
-        this.organizerId = organizerId;
+        this.sponsorId = sponsorId;
         this.identifier = identifier;
         this.type = type;
         this.name = name;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.local = local;
+        this.location = location;
         this.capacity = capacity;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;

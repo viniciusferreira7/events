@@ -7,14 +7,14 @@ import java.util.Optional;
 
 public record Event(
         String id,
-        String organizerId,
+        String sponsorId,
         String identifier,
         EventType type,
         String name,
         String description,
         LocalDateTime startTime,
         LocalDateTime endTime,
-        String local,
+        String location,
         Short capacity,
         LocalDateTime createdAt,
         Optional<LocalDateTime> updatedAt

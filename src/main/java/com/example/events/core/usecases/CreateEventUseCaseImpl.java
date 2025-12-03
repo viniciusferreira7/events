@@ -10,14 +10,14 @@ public class CreateEventUseCaseImpl implements CreateEventUseCase {
     public Event execute(Event event) {
         return new Event(
                 event.id(),
-                event.organizerId(),
+                event.sponsorId(),
                 event.identifier(),
                 event.type(),
                 event.name(),
                 event.description(),
                 event.startTime(),
                 event.endTime(),
-                event.local(),
+                event.location(),
                 event.capacity(),
                 LocalDateTime.now(),
                 null
