@@ -4,10 +4,11 @@ import com.example.events.core.enums.EventType;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 public record Event(
-        String id,
-        String sponsorId,
+        UUID id,
+        UUID sponsorId,
         String identifier,
         EventType type,
         String name,

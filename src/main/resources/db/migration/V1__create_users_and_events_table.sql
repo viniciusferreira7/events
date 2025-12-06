@@ -1,7 +1,7 @@
-CREATE EXTENSION IF NOT EXISTS "pg_uuidv7";
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
 CREATE TABLE IF NOT EXISTS users (
-   id UUID PRIMARY KEY DEFAULT uuid_generate_v7(),
+   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
    name VARCHAR(100) NOT NULL,
    email TEXT UNIQUE NOT NUll,
    created_at TIMESTAMP NOT NULL DEFAULT now()
@@ -27,7 +27,7 @@ CREATE TYPE event_type AS ENUM (
 
 
 CREATE TABLE IF NOT EXISTS events (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v7(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     sponsor_id UUID NOT NULL,
 
     identifier VARCHAR(64) UNIQUE NOT NULL,
@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS events (
     capacity SMALLINT NULL,
 
 
-    start_time TIME NOT NULL,
-    end_time TIME NOT NULL,
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP NOT NULL,
 
     created_at TIMESTAMP NOT NULL DEFAULT now(),
     updated_at TIMESTAMP NULL,

@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,11 +19,13 @@ import java.util.Optional;
 public class EventEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private final String id;
+    private UUID id;
 
     @Column(name = "sponsor_id")
-    private String sponsorId;
+    private UUID sponsorId;
     private String identifier;
+
+    @Enumerated(EnumType.STRING)
     private EventType type;
     private String name;
 
@@ -41,14 +44,14 @@ public class EventEntity {
     private Short capacity;
 
     @Column(name = "created_at")
-    private final LocalDateTime createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = true)
     private LocalDateTime updatedAt;
 
     public EventEntity(
-            String id,
-           String sponsorId,
+           UUID id,
+           UUID sponsorId,
            String identifier,
            EventType type,
            String name,
