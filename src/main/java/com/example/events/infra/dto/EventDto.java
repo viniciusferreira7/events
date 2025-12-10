@@ -1,10 +1,9 @@
-package com.example.events.infra.dtos;
+package com.example.events.infra.dto;
 
 import com.example.events.core.enums.EventType;
 import lombok.Builder;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 @Builder

@@ -1,10 +1,7 @@
 package com.example.events.infra.mapper;
 
 import com.example.events.core.entities.Event;
-import com.example.events.core.enums.EventType;
-import com.example.events.infra.dtos.EventDto;
-
-import java.time.LocalDateTime;
+import com.example.events.infra.dto.EventDto;
 
 public class EventMapper {
     public Event toEvent(EventDto eventDTO){
@@ -21,7 +18,7 @@ public class EventMapper {
             );
     }
 
-    public EventDto toEvent(Event event){
+    public EventDto toEventDto(Event event){
         return EventDto.builder()
                 .sponsorId(event.sponsorId())
                 .identifier(event.identifier())
