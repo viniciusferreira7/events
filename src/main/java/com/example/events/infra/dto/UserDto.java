@@ -1,5 +1,6 @@
 package com.example.events.infra.dto;
 
+import com.example.events.core.entities.Event;
 import lombok.Builder;
 
 @Builder
