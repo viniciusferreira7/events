@@ -30,6 +30,7 @@ public class UserEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    //TODO: Check if it correctly logic
     @ManyToOne
     @JoinTable(
             name = "sponsor_events",
