@@ -3,9 +3,12 @@ package com.example.events.infra.mapper;
 import com.example.events.core.entities.Event;
 import com.example.events.infra.dto.EventDto;
 
+import java.util.UUID;
+
 public class EventMapper {
-    public Event toEvent(EventDto eventDTO){
+    public static Event toDomain(EventDto eventDTO){
         return new Event(
+               UUID.randomUUID(),
                 eventDTO.sponsorId(),
                 eventDTO.identifier(),
                 eventDTO.type(),
@@ -14,11 +17,13 @@ public class EventMapper {
                 eventDTO.startTime(),
                 eventDTO.endTime(),
                 eventDTO.location(),
-                eventDTO.capacity()
+                eventDTO.capacity(),
+                eventDTO.createdAt(),
+                eventDTO.updatedAt()
             );
     }
 
-    public EventDto toEventDto(Event event){
+    public static EventDto toDto(Event event){
         return EventDto.builder()
                 .sponsorId(event.sponsorId())
                 .identifier(event.identifier())
@@ -29,6 +34,8 @@ public class EventMapper {
                 .endTime(event.endTime())
                 .location(event.location())
                 .capacity(event.capacity())
+                .createdAt(event.createdAt())
+                .updatedAt(event.updatedAt())
             .build();
     }
 }
