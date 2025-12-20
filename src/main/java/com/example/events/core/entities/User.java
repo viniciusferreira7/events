@@ -1,6 +1,6 @@
 package com.example.events.core.entities;
 
-import com.example.events.infra.dto.EventDto;
+import com.example.events.infra.dto.EventResponseDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,6 +11,6 @@ public record User(
         String name,
         String email,
         LocalDateTime created_at,
-        List<EventDto> events
+        List<EventResponseDto> events
 ) {
 }

@@ -1,30 +1,32 @@
 package com.example.events.infra.mapper;
 
 import com.example.events.core.entities.Event;
-import com.example.events.infra.dto.EventDto;
+import com.example.events.infra.dto.CreateEventRequestDto;
+import com.example.events.infra.dto.EventResponseDto;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class EventDtoMapper {
-    public static Event toDomain(EventDto eventDTO){
+    public static Event toDomain(CreateEventRequestDto requestDto){
         return new Event(
-               UUID.randomUUID(),
-                eventDTO.sponsorId(),
-                eventDTO.identifier(),
-                eventDTO.type(),
-                eventDTO.name(),
-                eventDTO.description(),
-                eventDTO.startTime(),
-                eventDTO.endTime(),
-                eventDTO.location(),
-                eventDTO.capacity(),
-                eventDTO.createdAt(),
-                eventDTO.updatedAt()
-            );
+                UUID.randomUUID(),
+                requestDto.sponsorId(),
+                requestDto.identifier(),
+                requestDto.type(),
+                requestDto.name(),
+                requestDto.description(),
+                requestDto.startTime(),
+                requestDto.endTime(),
+                requestDto.location(),
+                requestDto.capacity(),
+                null,
+                Optional.empty()
+        );
     }
 
-    public static EventDto toDto(Event event){
-        return EventDto.builder()
+    public static EventResponseDto toResponseDto(Event event){
+        return EventResponseDto.builder()
                 .sponsorId(event.sponsorId())
                 .identifier(event.identifier())
                 .type(event.type())
@@ -36,6 +38,6 @@ public class EventDtoMapper {
                 .capacity(event.capacity())
                 .createdAt(event.createdAt())
                 .updatedAt(event.updatedAt())
-            .build();
+                .build();
     }
 }

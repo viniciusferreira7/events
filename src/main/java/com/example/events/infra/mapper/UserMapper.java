@@ -2,20 +2,31 @@ package com.example.events.infra.mapper;
 
 
 import com.example.events.core.entities.User;
-import com.example.events.infra.dto.UserDto;
+import com.example.events.infra.dto.CreateUserRequestDto;
+import com.example.events.infra.dto.UserResponseDto;
+
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class UserMapper {
-    public User toUser(UserDto userDTO){
+    public static User toDomain(CreateUserRequestDto requestDto){
         return new User(
-                userDTO.name(),
-                userDTO.email()
+                UUID.randomUUID(),
+                requestDto.name(),
+                requestDto.email(),
+                null,
+                List.of()
         );
     }
 
-    public UserDto toUserDto(User user){
-        return UserDto.builder()
+    public static UserResponseDto toResponseDto(User user){
+        return UserResponseDto.builder()
+                .id(user.id())
                 .name(user.name())
                 .email(user.email())
+                .createdAt(user.created_at())
+                .events(user.events())
                 .build();
     }
 }

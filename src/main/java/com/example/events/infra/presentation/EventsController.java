@@ -2,8 +2,9 @@ package com.example.events.infra.presentation;
 
 import com.example.events.core.entities.Event;
 import com.example.events.core.usecases.CreateEventUseCase;
-import com.example.events.infra.dto.EventDto;
-import com.example.events.infra.mapper.EventMapper;
+import com.example.events.infra.dto.CreateEventRequestDto;
+import com.example.events.infra.dto.EventResponseDto;
+import com.example.events.infra.mapper.EventDtoMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -33,7 +34,7 @@ public class EventsController {
                     description = "Event created successfully",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = EventDto.class)
+                            schema = @Schema(implementation = EventResponseDto.class)
                     )
             ),
             @ApiResponse(
@@ -47,12 +48,12 @@ public class EventsController {
                     content = @Content
             )
     })
-    public ResponseEntity<EventDto> createEvent(@RequestBody EventDto eventBody){
-        Event event = EventMapper.toDomain(eventBody);
+    public ResponseEntity<EventResponseDto> createEvent(@RequestBody CreateEventRequestDto eventBody){
+        Event event = EventDtoMapper.toDomain(eventBody);
 
         Event eventCreated = this.createEventUseCase.execute(event);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(EventMapper.toDto(eventCreated));
+        return ResponseEntity.status(HttpStatus.CREATED).body(EventDtoMapper.toResponseDto(eventCreated));
     }
 
 }
