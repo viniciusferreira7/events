@@ -54,6 +54,18 @@ public class EventEntity {
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = true)
     private LocalDateTime updatedAt;
+
+    public EventEntity(UUID sponsorId, String identifier, EventType type, String name, String description, String location, Short capacity, LocalDateTime startTime, LocalDateTime endTime) {
+        this.sponsorId = sponsorId;
+        this.identifier = identifier;
+        this.type = type;
+        this.name = name;
+        this.description = description;
+        this.location = location;
+        this.capacity = capacity;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 }
