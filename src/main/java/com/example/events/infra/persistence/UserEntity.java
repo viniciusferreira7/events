@@ -2,8 +2,8 @@ package com.example.events.infra.persistence;
 
 import com.example.events.core.entities.Event;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -12,8 +12,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "users")
 public class UserEntity {
     @Id
@@ -30,12 +30,6 @@ public class UserEntity {
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    //TODO: Check if it correctly logic
-    @ManyToOne
-    @JoinTable(
-            name = "sponsor_events",
-            joinColumns = @JoinColumn(name = "sponsor_id"),
-            inverseJoinColumns = @JoinColumn(name = "event_id")
-    )
+    @OneToMany(mappedBy = "sponsor")
     private List<Event> events;
 }

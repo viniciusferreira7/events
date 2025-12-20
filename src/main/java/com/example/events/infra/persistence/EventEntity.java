@@ -1,6 +1,5 @@
 package com.example.events.infra.persistence;
 
-import com.example.events.core.entities.Event;
 import com.example.events.core.enums.EventType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -9,8 +8,6 @@ import lombok.Setter;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -25,14 +22,8 @@ public class EventEntity {
     @Column(columnDefinition = "uuid", nullable = false)
     private UUID id;
 
-    //TODO: Check if it correctly logic
-    @ManyToOne
-    @JoinTable(
-            name = "sponsor_events",
-            joinColumns = @JoinColumn(name = "event_id"),
-            inverseJoinColumns = @JoinColumn(name = "sponsor_id")
-    )
-    @Column(name = "sponsor_id", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "sponsor_id", nullable = false)
     private UUID sponsorId;
 
     @Column(length = 64, unique = true, nullable = false)
