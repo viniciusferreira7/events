@@ -5,7 +5,7 @@ import com.example.events.infra.dto.EventDto;
 
 import java.util.UUID;
 
-public class EventMapper {
+public class EventDtoMapper {
     public static Event toDomain(EventDto eventDTO){
         return new Event(
                UUID.randomUUID(),
