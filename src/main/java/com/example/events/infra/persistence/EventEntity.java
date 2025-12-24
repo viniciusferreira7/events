@@ -22,8 +22,7 @@ public class EventEntity {
     @Column(columnDefinition = "uuid", nullable = false)
     private UUID id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "sponsor_id", nullable = false)
+    @Column(name = "sponsor_id", nullable = false)
     private UUID sponsorId;
 
     @Column(length = 64, unique = true, nullable = false)

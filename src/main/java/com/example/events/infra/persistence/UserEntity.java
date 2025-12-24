@@ -29,7 +29,4 @@ public class UserEntity {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-
-    @OneToMany(mappedBy = "sponsor")
-    private List<Event> events;
 }

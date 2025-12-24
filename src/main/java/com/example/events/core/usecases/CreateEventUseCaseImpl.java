@@ -1,26 +1,19 @@
 package com.example.events.core.usecases;
 
 import com.example.events.core.entities.Event;
+import com.example.events.core.gateway.EventGateway;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-
+@Service
 public class CreateEventUseCaseImpl implements CreateEventUseCase {
+    private final EventGateway eventGateway;
+
+    public CreateEventUseCaseImpl(EventGateway eventGateway) {
+        this.eventGateway = eventGateway;
+    }
 
     @Override
-    public Event execute(Event event) {
-        return new Event(
-                event.id(),
-                event.sponsorId(),
-                event.identifier(),
-                event.type(),
-                event.name(),
-                event.description(),
-                event.startTime(),
-                event.endTime(),
-                event.location(),
-                event.capacity(),
-                LocalDateTime.now(),
-                null
-        );
+    public Event execute(Event eventData) {
+       return this.eventGateway.createEvent(eventData);
     }
 }
