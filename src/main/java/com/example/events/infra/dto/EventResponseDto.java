@@ -11,6 +11,9 @@ import java.util.UUID;
 @Builder
 @Schema(description = "Response object containing complete event information")
 public record EventResponseDto(
+        @Schema(description = "Unique identifier of the event", example = "570e4767-ef9b-12d3-a456-428110144020")
+        UUID id,
+
         @Schema(description = "Unique identifier of the event sponsor", example = "123e4567-e89b-12d3-a456-426614174000")
         UUID sponsorId,
 

@@ -27,6 +27,7 @@ public class EventDtoMapper {
 
     public static EventResponseDto toResponseDto(Event event){
         return EventResponseDto.builder()
+                .id(event.id())
                 .sponsorId(event.sponsorId())
                 .identifier(event.identifier())
                 .type(event.type())
