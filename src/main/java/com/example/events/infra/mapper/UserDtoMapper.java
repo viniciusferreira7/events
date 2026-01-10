@@ -7,9 +7,8 @@ import com.example.events.infra.dto.UserResponseDto;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
-public class UserMapper {
+public class UserDtoMapper {
     public static User toDomain(CreateUserRequestDto requestDto){
         return new User(
                 UUID.randomUUID(),
