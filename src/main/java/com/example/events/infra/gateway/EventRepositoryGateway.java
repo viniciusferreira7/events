@@ -9,9 +9,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class EventRepositoryGateway implements EventGateway {
-    private EventsRepository eventsRepository;
+    private final EventsRepository eventsRepository;
+
+    public EventRepositoryGateway(EventsRepository eventsRepository) {
+        this.eventsRepository = eventsRepository;
+    }
+
 
     @Override
     public Event createEvent(Event eventData) {
