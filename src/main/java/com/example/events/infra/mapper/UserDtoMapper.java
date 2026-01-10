@@ -11,7 +11,7 @@ import java.util.UUID;
 public class UserDtoMapper {
     public static User toDomain(CreateUserRequestDto requestDto){
         return new User(
-                UUID.randomUUID(),
+                null,
                 requestDto.name(),
                 requestDto.email(),
                 null,

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class EventEntityMapper {
     public static EventEntity toEntity(Event event){
-        return new EventEntity(
+        EventEntity entity = new EventEntity(
                 event.sponsorId(),
                 event.identifier(),
                 event.type(),
@@ -18,6 +18,10 @@ public class EventEntityMapper {
                 event.startTime(),
                 event.endTime()
         );
+        if (event.id() != null) {
+            entity.setId(event.id());
+        }
+        return entity;
     }
 
     public static Event toDomain(EventEntity eventEntity){

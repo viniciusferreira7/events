@@ -10,7 +10,7 @@ import java.util.UUID;
 public class EventDtoMapper {
     public static Event toDomain(CreateEventRequestDto requestDto){
         return new Event(
-                UUID.randomUUID(),
+                null,
                 requestDto.sponsorId(),
                 requestDto.identifier(),
                 requestDto.type(),
