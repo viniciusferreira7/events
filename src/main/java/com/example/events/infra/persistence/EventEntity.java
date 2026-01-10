@@ -5,7 +5,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -29,7 +32,12 @@ public class EventEntity {
     private String identifier;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(
+            name = "type",
+            nullable = false,
+            columnDefinition = "event_type"
+    )
     private EventType type;
 
     @Column(length = 300, nullable = false)
@@ -49,6 +57,7 @@ public class EventEntity {
     @Column(name = "end_time", nullable = false)
     private LocalDateTime endTime;
 
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
