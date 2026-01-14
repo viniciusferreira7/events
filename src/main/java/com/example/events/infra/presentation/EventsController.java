@@ -2,6 +2,7 @@ package com.example.events.infra.presentation;
 
 import com.example.events.core.entities.Event;
 import com.example.events.core.usecases.CreateEventUseCase;
+import com.example.events.core.usecases.FetchEventsUseCase;
 import com.example.events.infra.dto.CreateEventRequestDto;
 import com.example.events.infra.dto.EventResponseDto;
 import com.example.events.infra.mapper.EventDtoMapper;
@@ -15,14 +16,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/events")
 @Tag(name = "Events", description = "Events management API")
 public class EventsController {
     private final CreateEventUseCase createEventUseCase;
+    private final FetchEventsUseCase fetchEventsUseCase;
 
-    public EventsController(CreateEventUseCase createEventUseCase) {
+    public EventsController(CreateEventUseCase createEventUseCase, FetchEventsUseCase fetchEventsUseCase) {
         this.createEventUseCase = createEventUseCase;
+        this.fetchEventsUseCase = fetchEventsUseCase;
     }
 
     @PostMapping
@@ -56,6 +61,32 @@ public class EventsController {
         Event eventCreated = this.createEventUseCase.execute(event);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(EventDtoMapper.toResponseDto(eventCreated));
+    }
+
+    @GetMapping
+    @Operation(
+            summary = "Fetch events",
+            description = "Retrieves a list of events. Optionally filter by search term to match event name or description"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Events retrieved successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = EventResponseDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error",
+                    content = @Content
+            )
+    })
+    public ResponseEntity<List<EventResponseDto>> fetchEvents(@RequestParam(required = false) String search){
+        List<EventResponseDto> eventResponseDtoList = this.fetchEventsUseCase.execute(search).stream().map(EventDtoMapper::toResponseDto).toList();
+
+        return ResponseEntity.status(HttpStatus.OK).body(eventResponseDtoList);
     }
 
 }
