@@ -7,6 +7,7 @@ import com.example.events.infra.dto.CreateEventRequestDto;
 import com.example.events.infra.dto.EventResponseDto;
 import com.example.events.infra.mapper.EventDtoMapper;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -83,7 +84,13 @@ public class EventsController {
                     content = @Content
             )
     })
-    public ResponseEntity<List<EventResponseDto>> fetchEvents(@RequestParam(required = false) String search){
+    public ResponseEntity<List<EventResponseDto>> fetchEvents(
+            @Parameter(
+                    description = "Search term to filter events by name, type, description, identifier, location, capacity",
+                    example = "conference",
+                    schema = @Schema(type = "string")
+            )
+            @RequestParam(required = false) String search){
         List<EventResponseDto> eventResponseDtoList = this.fetchEventsUseCase.execute(search).stream().map(EventDtoMapper::toResponseDto).toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(eventResponseDtoList);
