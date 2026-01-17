@@ -39,6 +39,7 @@ A Spring Boot application for managing events and users, built with Clean Archit
 
 ### API Endpoints
 
+- **GET** `/api/v1/events` - Fetch events (optional `search` query parameter)
 - **POST** `/api/v1/events` - Create a new event
 - **POST** `/api/v1/users` - Create a new user
 
