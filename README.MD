@@ -57,6 +57,7 @@ Access the full API documentation at `http://localhost:8080/swagger-ui.html`
 ```
 src/main/java/events/
 ├── config/                        # Application configuration
+│   ├── ApplicationControllerAdvice # Global exception handler
 │   └── DotenvConfig               # Environment variables configuration
 ├── core/                          # Domain layer (business logic)
 │   ├── entities/                  # Domain entities
@@ -89,6 +90,7 @@ src/main/java/events/
 │   │   ├── EventRepositoryGateway
 │   │   └── UserRepositoryGateway
 │   ├── mapper/                    # Entity/DTO mappers
+│   │   ├── ErrorResponse
 │   │   ├── EventDtoMapper
 │   │   ├── EventEntityMapper
 │   │   ├── UserDtoMapper
