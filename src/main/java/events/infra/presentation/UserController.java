@@ -1,8 +1,10 @@
 package events.infra.presentation;
 
 import events.core.entities.User;
+import events.core.exceptions.UserAlreadyExistsException;
 import events.core.usecases.CreateUserUseCase;
 import events.infra.dto.CreateUserRequestDto;
+import events.infra.dto.ErrorResponseDto;
 import events.infra.dto.UserResponseDto;
 import events.infra.mapper.UserDtoMapper;
 import io.swagger.v3.oas.annotations.Operation;
@@ -48,14 +50,29 @@ public class UserController {
                     content = @Content
             ),
             @ApiResponse(
+                    responseCode = "409",
+                    description = "User with this email already exists",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            ),
+            @ApiResponse(
                     responseCode = "500",
                     description = "Internal server error",
                     content = @Content
             )
     })
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody CreateUserRequestDto userData){
-        User userCreated = this.createUserUseCase.execute(UserDtoMapper.toDomain(userData));
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(UserDtoMapper.toResponseDto(userCreated));
+    public ResponseEntity<?> createUser(@RequestBody CreateUserRequestDto userData){
+        try {
+            User userCreated = this.createUserUseCase.execute(UserDtoMapper.toDomain(userData));
+            return ResponseEntity.status(HttpStatus.CREATED).body(UserDtoMapper.toResponseDto(userCreated));
+        } catch (UserAlreadyExistsException e) {
+            ErrorResponseDto errorResponse = new ErrorResponseDto(
+                    e.getMessage(),
+                    HttpStatus.CONFLICT.value()
+            );
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+        }
     }
 }

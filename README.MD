@@ -64,6 +64,8 @@ src/main/java/events/
 │   │   └── User
 │   ├── enums/                     # Domain enums
 │   │   └── EventType
+│   ├── exceptions/                # Domain exceptions
+│   │   └── UserAlreadyExistsException
 │   ├── gateway/                   # Gateway interfaces
 │   │   ├── EventGateway
 │   │   └── UserGateway
@@ -80,6 +82,7 @@ src/main/java/events/
 │   ├── dto/                       # Data Transfer Objects
 │   │   ├── CreateEventRequestDto
 │   │   ├── CreateUserRequestDto
+│   │   ├── ErrorResponseDto
 │   │   ├── EventResponseDto
 │   │   └── UserResponseDto
 │   ├── gateway/                   # Gateway implementations

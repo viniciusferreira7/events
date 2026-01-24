@@ -1,12 +1,12 @@
 package events.infra.gateway;
 
 import events.core.entities.User;
+import events.core.exceptions.UserAlreadyExistsException;
 import events.core.gateway.UserGateway;
 import events.infra.mapper.UserEntityMapper;
 import events.infra.persistence.UserEntity;
 import events.infra.persistence.UserRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class UserRepositoryGateway implements UserGateway {
@@ -20,8 +20,15 @@ public class UserRepositoryGateway implements UserGateway {
     public User create(User user) {
         UserEntity entity = UserEntityMapper.toEntity(user);
 
+        UserEntity userEntity = this.userRepository.findByEmail(entity.getEmail());
+
+        if(userEntity != null){
+            throw new UserAlreadyExistsException("Email already exists");
+        }
+
         UserEntity userEntityCreated = this.userRepository.save(entity);
 
         return UserEntityMapper.toDomain(userEntityCreated);
+
     }
 }
