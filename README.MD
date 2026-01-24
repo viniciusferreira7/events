@@ -56,32 +56,50 @@ Access the full API documentation at `http://localhost:8080/swagger-ui.html`
 
 ```
 src/main/java/com/example/events/
+├── config/                        # Application configuration
+│   └── DotenvConfig               # Environment variables configuration
 ├── core/                          # Domain layer (business logic)
-│   ├── entities/                  # Domain entities (Event, User)
-│   ├── enums/                     # Domain enums (EventType)
+│   ├── entities/                  # Domain entities
+│   │   ├── Event
+│   │   └── User
+│   ├── enums/                     # Domain enums
+│   │   └── EventType
 │   ├── gateway/                   # Gateway interfaces
+│   │   ├── EventGateway
+│   │   └── UserGateway
 │   └── usecases/                  # Use cases (business rules)
-│       ├── CreateEventUseCase
-│       └── CreateUserUseCase
-└── infra/                         # Infrastructure layer
-    ├── config/                    # Spring configuration
-    ├── dto/                       # Data Transfer Objects
-    ├── gateway/                   # Gateway implementations
-    │   ├── EventRepositoryGateway
-    │   └── UserRepositoryGateway
-    ├── mapper/                    # Entity/DTO mappers
-    │   ├── EventDtoMapper
-    │   ├── EventEntityMapper
-    │   ├── UserDtoMapper
-    │   └── UserEntityMapper
-    ├── persistence/               # JPA entities & repositories
-    │   ├── EventEntity
-    │   ├── EventsRepository
-    │   ├── UserEntity
-    │   └── UserRepository
-    └── presentation/              # REST controllers
-        ├── EventsController
-        └── UserController
+│       ├── CreateEventUseCase     # Interface
+│       ├── CreateEventUseCaseImpl # Implementation
+│       ├── CreateUserUseCase      # Interface
+│       ├── CreateUserUseCaseImpl  # Implementation
+│       ├── FetchEventsUseCase     # Interface
+│       └── FetchEventsUseCaseImpl # Implementation
+├── infra/                         # Infrastructure layer
+│   ├── beans/                     # Spring bean configuration
+│   │   └── BeanConfiguration
+│   ├── dto/                       # Data Transfer Objects
+│   │   ├── CreateEventRequestDto
+│   │   ├── CreateUserRequestDto
+│   │   ├── EventResponseDto
+│   │   └── UserResponseDto
+│   ├── gateway/                   # Gateway implementations
+│   │   ├── EventRepositoryGateway
+│   │   └── UserRepositoryGateway
+│   ├── mapper/                    # Entity/DTO mappers
+│   │   ├── EventDtoMapper
+│   │   ├── EventEntityMapper
+│   │   ├── UserDtoMapper
+│   │   └── UserEntityMapper
+│   ├── persistence/               # JPA entities & repositories
+│   │   ├── EventEntity
+│   │   ├── EventEntitySpecification
+│   │   ├── EventsRepository
+│   │   ├── UserEntity
+│   │   └── UserRepository
+│   └── presentation/              # REST controllers
+│       ├── EventsController
+│       └── UserController
+└── EventsApplication.java         # Spring Boot main application
 ```
 
 ### Architecture
