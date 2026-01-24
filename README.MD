@@ -55,7 +55,7 @@ Access the full API documentation at `http://localhost:8080/swagger-ui.html`
 ### Project Structure
 
 ```
-src/main/java/com/example/events/
+src/main/java/events/
 ├── config/                        # Application configuration
 │   └── DotenvConfig               # Environment variables configuration
 ├── core/                          # Domain layer (business logic)

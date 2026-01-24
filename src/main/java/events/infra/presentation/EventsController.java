@@ -1,0 +1,99 @@
+package events.infra.presentation;
+
+import events.core.entities.Event;
+import events.core.usecases.CreateEventUseCase;
+import events.core.usecases.FetchEventsUseCase;
+import events.infra.dto.CreateEventRequestDto;
+import events.infra.dto.EventResponseDto;
+import events.infra.mapper.EventDtoMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("api/v1/events")
+@Tag(name = "Events", description = "Events management API")
+public class EventsController {
+    private final CreateEventUseCase createEventUseCase;
+    private final FetchEventsUseCase fetchEventsUseCase;
+
+    public EventsController(CreateEventUseCase createEventUseCase, FetchEventsUseCase fetchEventsUseCase) {
+        this.createEventUseCase = createEventUseCase;
+        this.fetchEventsUseCase = fetchEventsUseCase;
+    }
+
+    @PostMapping
+    @Operation(
+            summary = "Create a new event",
+            description = "Creates a new event with the provided information including sponsor, location, capacity and timing details"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Event created successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = EventResponseDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid event data provided",
+                    content = @Content
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error",
+                    content = @Content
+            )
+    })
+    public ResponseEntity<EventResponseDto> createEvent(@RequestBody CreateEventRequestDto eventBody){
+        Event event = EventDtoMapper.toDomain(eventBody);
+
+        Event eventCreated = this.createEventUseCase.execute(event);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(EventDtoMapper.toResponseDto(eventCreated));
+    }
+
+    @GetMapping
+    @Operation(
+            summary = "Fetch events",
+            description = "Retrieves a list of events. Optionally filter by search term to match event name or description"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Events retrieved successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = EventResponseDto.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Internal server error",
+                    content = @Content
+            )
+    })
+    public ResponseEntity<List<EventResponseDto>> fetchEvents(
+            @Parameter(
+                    description = "Search term to filter events by name, type, description, identifier, location, capacity",
+                    example = "conference",
+                    schema = @Schema(type = "string")
+            )
+            @RequestParam(required = false) String search){
+        List<EventResponseDto> eventResponseDtoList = this.fetchEventsUseCase.execute(search).stream().map(EventDtoMapper::toResponseDto).toList();
+
+        return ResponseEntity.status(HttpStatus.OK).body(eventResponseDtoList);
+    }
+
+}
