@@ -16,9 +16,6 @@ public record CreateEventRequestDto(
         UUID sponsorId,
 
         @NotNull(message = "Event identifier is required")
-        @Schema(description = "Unique identifier for the event", example = "EVENT-2024-001", requiredMode = Schema.RequiredMode.REQUIRED)
-        String identifier,
-
         @NotNull(message = "Event type is required")
         @Schema(description = "Type of the event", example = "CONFERENCE", allowableValues = {
                 "CONFERENCE", "SEMINAR", "WORKSHOP", "MEETUP", "NETWORKING",

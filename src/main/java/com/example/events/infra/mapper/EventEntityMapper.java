@@ -8,18 +8,18 @@ import java.util.Optional;
 public class EventEntityMapper {
     public static EventEntity toEntity(Event event){
         EventEntity entity = new EventEntity(
-                event.sponsorId(),
-                event.identifier(),
-                event.type(),
-                event.name(),
-                event.description(),
-                event.location(),
-                event.capacity(),
-                event.startTime(),
-                event.endTime()
+                event.getSponsorId(),
+                event.getIdentifier(),
+                event.getType(),
+                event.getName(),
+                event.getDescription(),
+                event.getLocation(),
+                event.getCapacity(),
+                event.getStartTime(),
+                event.getEndTime()
         );
-        if (event.id() != null) {
-            entity.setId(event.id());
+        if (event.getId() != null) {
+            entity.setId(event.getId());
         }
         return entity;
     }

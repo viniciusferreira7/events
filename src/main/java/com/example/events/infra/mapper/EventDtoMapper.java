@@ -12,7 +12,7 @@ public class EventDtoMapper {
         return new Event(
                 null,
                 requestDto.sponsorId(),
-                requestDto.identifier(),
+                null,
                 requestDto.type(),
                 requestDto.name(),
                 requestDto.description(),
@@ -27,18 +27,19 @@ public class EventDtoMapper {
 
     public static EventResponseDto toResponseDto(Event event){
         return EventResponseDto.builder()
-                .id(event.id())
-                .sponsorId(event.sponsorId())
-                .identifier(event.identifier())
-                .type(event.type())
-                .name(event.name())
-                .description(event.description())
-                .startTime(event.startTime())
-                .endTime(event.endTime())
-                .location(event.location())
-                .capacity(event.capacity())
-                .createdAt(event.createdAt())
-                .updatedAt(event.updatedAt())
+                .id(event.getId())
+                .identifier(event.getIdentifier())
+                .sponsorId(event.getSponsorId())
+                .identifier(event.getIdentifier())
+                .type(event.getType())
+                .name(event.getName())
+                .description(event.getDescription())
+                .startTime(event.getStartTime())
+                .endTime(event.getEndTime())
+                .location(event.getLocation())
+                .capacity(event.getCapacity())
+                .createdAt(event.getCreatedAt())
+                .updatedAt(event.getUpdatedAt())
                 .build();
     }
 }
