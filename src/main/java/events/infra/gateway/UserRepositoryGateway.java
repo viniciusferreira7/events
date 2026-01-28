@@ -1,7 +1,6 @@
 package events.infra.gateway;
 
 import events.core.entities.User;
-import events.core.exceptions.UserAlreadyExistsException;
 import events.core.gateway.UserGateway;
 import events.infra.mapper.UserEntityMapper;
 import events.infra.persistence.UserEntity;
@@ -30,7 +29,7 @@ public class UserRepositoryGateway implements UserGateway {
 
     @Override
     public Optional<User> findByEmail(String email) {
-        return Optional.ofNullable(userRepository.findByEmail(email))
+        return userRepository.findByEmail(email)
                 .map(UserEntityMapper::toDomain);
     }
 }
