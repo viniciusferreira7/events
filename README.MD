@@ -1,5 +1,3 @@
-# ⚠️ WIP
-
 ## Events API
 
 A Spring Boot application for managing events and users, built with Clean Architecture principles, PostgreSQL database, Flyway migrations, and Hibernate ORM.
